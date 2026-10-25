@@ -1,0 +1,23 @@
+{
+  "id": "porcore",
+  "name": "Porcore",
+  "version": "1.1.0",
+  "apiVersion": 6,
+  "entry": "plugin.js",
+  "description": "Videos 3D, hentai y cartoon porn de porcore.com. Contenido adulto.",
+  "author": "community",
+  "homepage": "https://porcore.com/",
+  "hosts": [
+    "porcore.com",
+    "*.porcore.com",
+    "*.cdn.serverable.com",
+    "*.bkcdn.net",
+    "*.bxcdn.net",
+    "*.serverable.com"
+  ],
+  "streamHosts": "any",
+  "capabilities": ["search", "home", "browse", "resolve"],
+  "categories": ["adult", "anime"],
+  "color": "#E67E22",
+  "icon": "icon.png"
+}
