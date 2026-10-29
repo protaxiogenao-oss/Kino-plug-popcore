@@ -128,29 +128,37 @@ export async function search(query) {
   return next ? { items, next } : { items };
 }
 
-// Cada fila apunta a la URL real del sitio. Los vídeos con varios tags
-// aparecen en más de una categoría (comportamiento normal de porcore).
+// Filas de Inicio (orden pensado para menos solapamiento).
+// En home() se deduplican: un vídeo solo aparece en la primera fila donde salga.
 const HOME_ROWS = [
   { id: "newest", title: "Más recientes", path: "/&ajax&p=1", genre: "anime" },
   { id: "top", title: "Mejor valorados", path: "/videos/top-rated/&ajax&p=1", genre: "anime" },
   { id: "viewed", title: "Más vistos", path: "/videos/most-viewed/&ajax&p=1", genre: "anime" },
-  { id: "hentai", title: "Hentai", path: "/show/hentai?ajax&sort=toprated", genre: "anime" },
-  { id: "3d", title: "3D", path: "/show/3d?ajax&sort=toprated", genre: "anime" },
   { id: "parodies", title: "Parodias", path: "/show/parodies?ajax&sort=toprated", genre: "anime" },
   { id: "aliens", title: "Aliens", path: "/show/aliens?ajax&sort=toprated", genre: "anime" },
   { id: "monsters", title: "Monstruos", path: "/show/monsters?ajax&sort=toprated", genre: "anime" },
   { id: "furry", title: "Furry", path: "/show/furry?ajax&sort=toprated", genre: "anime" },
+  { id: "tentacles", title: "Tentáculos", path: "/show/tentacles?ajax&sort=toprated", genre: "anime" },
   { id: "lesbians", title: "Lesbianas", path: "/show/lesbians?ajax&sort=toprated", genre: "anime" },
   { id: "shemales", title: "Shemales", path: "/show/shemales?ajax&sort=toprated", genre: "anime" },
-  { id: "tentacles", title: "Tentáculos", path: "/show/tentacles?ajax&sort=toprated", genre: "anime" },
+  { id: "uncensored", title: "Sin censura", path: "/show/uncensored?ajax&sort=toprated", genre: "anime" },
+  { id: "overwatch", title: "Overwatch", path: "/show/overwatch?ajax&sort=toprated", genre: "anime" },
 ];
 
 export async function home() {
   const rows = [];
+  const seen = new Set(); // evita el mismo vídeo en varias filas
+
   for (const row of HOME_ROWS) {
     try {
       const html = await fetchPage(row.path);
-      const items = parseItems(html, MAX_ROW);
+      let items = parseItems(html, MAX_ROW);
+      // Quitar duplicados respecto a filas anteriores
+      items = items.filter((it) => {
+        if (seen.has(it.id)) return false;
+        seen.add(it.id);
+        return true;
+      });
       if (items.length > 0) {
         rows.push({
           id: row.id,

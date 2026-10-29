@@ -1,11 +1,11 @@
 {
   "id": "porcore",
   "name": "Porcore",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "apiVersion": 6,
   "entry": "plugin.js",
-  "description": "Videos 3D, hentai y cartoon porn de porcore.com. Contenido adulto.",
-  "author": "community",
+  "description": "Videos 3D, hentai y cartoon porn de porcore.com. Hecho por Hotaru Yume. Contenido adulto.",
+  "author": "Hotaru Yume",
   "homepage": "https://porcore.com/",
   "hosts": [
     "porcore.com",
