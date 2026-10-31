@@ -18,7 +18,7 @@
   ],
   "streamHosts": "any",
   "capabilities": ["search", "home", "browse", "resolve"],
-  "categories": ["adult", "anime"],
+  "categories": ["adult"],
   "color": "#E67E22",
   "icon": "icon.png"
 }
